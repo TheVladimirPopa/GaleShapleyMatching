@@ -49,8 +49,8 @@ public class Algorithm {
                 {"M5", "M2", "M1", "M4", "M3"},
                 {"M2", "M1", "M4", "M3", "M5"}};
 
-        for (int i = 0; i < m.length; i++) Algorithm.proposerList.add(new Proposer(m[i]));
-        for (int i = 0; i < w.length; i++) Algorithm.acceptorList.add(new Acceptor(w[i]));
+        for (String s : m) Algorithm.proposerList.add(new Proposer(s));
+        for (String s : w) Algorithm.acceptorList.add(new Acceptor(s));
 
         int index = 0;
         for (Proposer proposer : proposerList) {
@@ -66,9 +66,6 @@ public class Algorithm {
             index++;
         }
 
-//        for (Proposer p : proposerList) {
-//            System.out.println("" + p + p.getPreferences());
-//        }
 
         Algorithm.calculateMatches();
         Algorithm.printMatches();
