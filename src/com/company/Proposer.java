@@ -6,14 +6,18 @@ import java.util.List;
 public class Proposer {
 
     private final String name;
+    private final List<Acceptor> preferences = new ArrayList<>();
     protected boolean free;
     private Acceptor match;
-    private List<Acceptor> preferences = new ArrayList<>();
     private int current = 0;
 
     public Proposer(String name) {
         this.name = name;
         free = true;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getCurrent() {
@@ -28,19 +32,30 @@ public class Proposer {
         if (p.isFree()) {
             setMatch(p);
             p.setMatch(this);
-            match.free = false;
+            match.setFree(false);
             free = false;
-        } else if (p.getRank(this) < p.getRank(p.getMatch0())) {
-            match.free = true;
+        } else if (p.getRank(this) < p.getRank(p.getMatch())) {
+            if (match != null) match.setFree(true);
+
+            /**
+             * This sets the previous match to a single status
+             * **/
+            p.getMatch().setMatch(null);
+            p.getMatch().setFree(true);
+
             setMatch(p);
             p.setMatch(this);
-            match.free = false;
+            match.setFree(false);
             free = false;
         }
     }
 
     public boolean isFree() {
         return free;
+    }
+
+    public void setFree(boolean free) {
+        this.free = free;
     }
 
     public Acceptor getMatch() {

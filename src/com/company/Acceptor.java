@@ -3,17 +3,16 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Acceptor extends Proposer {
+public class Acceptor {
 
+    private final String name;
+    private final List<Proposer> preferences = new ArrayList<>();
     private Proposer match;
-    private List<Proposer> preferences = new ArrayList<>();
+    private boolean free;
 
     public Acceptor(String name) {
-        super(name);
-    }
-
-    public void setMatch(Proposer match) {
-        this.match = match;
+        this.name = name;
+        free = true;
     }
 
     protected int getRank(Proposer proposer) {
@@ -23,11 +22,32 @@ public class Acceptor extends Proposer {
         return 0;
     }
 
+    public boolean isFree() {
+        return free;
+    }
+
+    public void setFree(boolean free) {
+        this.free = free;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public List<Proposer> getPreferences0() {
         return preferences;
     }
 
-    protected Proposer getMatch0() {
+    protected Proposer getMatch() {
         return match;
+    }
+
+    public void setMatch(Proposer match) {
+        this.match = match;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

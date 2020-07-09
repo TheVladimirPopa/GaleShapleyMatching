@@ -8,19 +8,19 @@ public class Algorithm {
     private static final List<Proposer> proposerList = new ArrayList<>();
     private static final List<Acceptor> acceptorList = new ArrayList<>();
 
-    private static boolean isEngaged(List<Proposer> proposerList) {
-        for (Proposer p : proposerList)
-            if (p.isFree())
+    private static boolean isEngaged() {
+        for (Proposer proposer : Algorithm.proposerList)
+            if (proposer.isFree())
                 return false;
         return true;
     }
 
     public static void calculateMatches() {
-        while (!isEngaged(proposerList)) {
-            for (Proposer p : proposerList) {
-                if (p.isFree())
-                    p.propose(p.getPreferences().get(p.getCurrent()));
-                if (p.isFree()) p.incCurrent();
+        while (!isEngaged()) {
+            for (Proposer proposer : proposerList) {
+                if (proposer.isFree())
+                    proposer.propose(proposer.getPreferences().get(proposer.getCurrent()));
+                if (proposer.isFree()) proposer.incCurrent();
             }
         }
     }
@@ -49,25 +49,54 @@ public class Algorithm {
                 {"M5", "M2", "M1", "M4", "M3"},
                 {"M2", "M1", "M4", "M3", "M5"}};
 
+        char prop = 'm'; //Changes the propose (m/w)
+
+        if (prop == 'm') input(m, w, mp, wp); // When men propose
+        else input(w, m, wp, mp); // When women propose
+    }
+
+
+    /**
+     * Input methods
+     **/
+
+    private static void input(String[] m, String[] w, String[][] mp, String[][] wp) {
         for (String s : m) Algorithm.proposerList.add(new Proposer(s));
         for (String s : w) Algorithm.acceptorList.add(new Acceptor(s));
 
         int index = 0;
         for (Proposer proposer : proposerList) {
             for (int i = 0; i < mp[index].length; i++)
-                proposer.getPreferences().add(new Acceptor(mp[index][i]));
+                proposer.getPreferences().add(matchStringToObject0(mp[index][i]));
             index++;
         }
 
         index = 0;
         for (Acceptor acceptor : acceptorList) {
-            for (int i = 0; i < mp[index].length; i++)
-                acceptor.getPreferences0().add(new Proposer(wp[index][i]));
+            for (int i = 0; i < wp[index].length; i++)
+                acceptor.getPreferences0().add(matchStringToObject(wp[index][i]));
             index++;
         }
 
-
         Algorithm.calculateMatches();
         Algorithm.printMatches();
+    }
+
+    private static Proposer matchStringToObject(String s) {
+        for (Proposer p : proposerList) {
+            if (s.equals(p.getName())) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private static Acceptor matchStringToObject0(String s) {
+        for (Acceptor a : acceptorList) {
+            if (s.equals(a.getName())) {
+                return a;
+            }
+        }
+        return null;
     }
 }
