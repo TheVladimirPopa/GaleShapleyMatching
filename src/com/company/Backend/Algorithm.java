@@ -1,4 +1,4 @@
-package com.company;
+package com.company.Backend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class Algorithm {
         char prop = 'm'; //Changes the propose (m/w)
 
         if (prop == 'm') input(m, w, mp, wp); // When men propose
-        else input(w, m, wp, mp); // When women propose
+        else input(w, m, wp, mp); // When women proposer
     }
 
 
