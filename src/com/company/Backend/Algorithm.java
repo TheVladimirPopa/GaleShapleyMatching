@@ -30,19 +30,21 @@ public class Algorithm {
             System.out.println(p + " " + p.getMatch());
     }
 
+
+    // Test Main
     public static void main(String[] args) {
-        /** list of men **/
+        // list of men
         String[] m = {"M1", "M2", "M3", "M4", "M5"};
-        /** list of women **/
+        // list of women
         String[] w = {"W1", "W2", "W3", "W4", "W5"};
 
-        /** men preference **/
+        // men preference
         String[][] mp = {{"W5", "W2", "W3", "W4", "W1"},
                 {"W2", "W5", "W1", "W3", "W4"},
                 {"W4", "W3", "W2", "W1", "W5"},
                 {"W1", "W2", "W3", "W4", "W5"},
                 {"W5", "W2", "W3", "W4", "W1"}};
-        /** women preference **/
+        // women preference
         String[][] wp = {{"M5", "M3", "M4", "M1", "M2"},
                 {"M1", "M2", "M3", "M5", "M4"},
                 {"M4", "M5", "M3", "M2", "M1"},
@@ -53,6 +55,9 @@ public class Algorithm {
 
         if (prop == 'm') input(m, w, mp, wp); // When men propose
         else input(w, m, wp, mp); // When women proposer
+
+        Algorithm.calculateMatches();
+        Algorithm.printMatches();
     }
 
 
@@ -60,7 +65,7 @@ public class Algorithm {
      * Input methods
      **/
 
-    private static void input(String[] m, String[] w, String[][] mp, String[][] wp) {
+    public static void input(String[] m, String[] w, String[][] mp, String[][] wp) {
         for (String s : m) Algorithm.proposerList.add(new Proposer(s));
         for (String s : w) Algorithm.acceptorList.add(new Acceptor(s));
 
@@ -77,9 +82,6 @@ public class Algorithm {
                 acceptor.getPreferences0().add(matchStringToObject(wp[index][i]));
             index++;
         }
-
-        Algorithm.calculateMatches();
-        Algorithm.printMatches();
     }
 
     private static Proposer matchStringToObject(String s) {
