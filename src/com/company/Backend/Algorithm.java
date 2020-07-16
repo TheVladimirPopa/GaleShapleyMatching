@@ -16,18 +16,27 @@ public class Algorithm {
     }
 
     public static void calculateMatches() {
+        int day = 1;
         while (!isEngaged()) {
             for (Proposer proposer : proposerList) {
                 if (proposer.isFree())
                     proposer.propose(proposer.getPreferences().get(proposer.getCurrent()));
                 if (proposer.isFree()) proposer.incCurrent();
             }
+            printMatches(day);
+            day++;
         }
     }
 
-    public static void printMatches() {
-        for (Proposer p : proposerList)
-            System.out.println(p + " " + p.getMatch());
+    public static void printMatches(int day) {
+        System.out.print("D" + day+ ": ");
+        for (Proposer p : proposerList) {
+            System.out.print(p + " - " + p.getMatch());
+            if(!p.equals(proposerList.get(proposerList.size()-1)))
+                System.out.print(", ");
+            else
+                System.out.print('\n');
+        }
     }
 
 
@@ -57,7 +66,6 @@ public class Algorithm {
         else input(w, m, wp, mp); // When women proposer
 
         Algorithm.calculateMatches();
-        Algorithm.printMatches();
     }
 
 
