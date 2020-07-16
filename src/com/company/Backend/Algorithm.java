@@ -8,34 +8,36 @@ public class Algorithm {
     private static final List<Proposer> proposerList = new ArrayList<>();
     private static final List<Acceptor> acceptorList = new ArrayList<>();
 
-    private static boolean isEngaged() {
+    private static boolean isEveryOneEngaged() {
         for (Proposer proposer : Algorithm.proposerList)
-            if (proposer.isFree())
+            if (proposer.isNotEngaged())
                 return false;
         return true;
     }
 
     public static void calculateMatches() {
         int day = 1;
-        while (!isEngaged()) {
+        while (!isEveryOneEngaged()) {
             for (Proposer proposer : proposerList) {
-                if (proposer.isFree())
+                if (proposer.isNotEngaged())
                     proposer.propose(proposer.getPreferences().get(proposer.getCurrent()));
-                if (proposer.isFree()) proposer.incCurrent();
             }
             printMatches(day);
             day++;
         }
     }
 
-    public static void printMatches(int day) {
-        System.out.print("D" + day+ ": ");
+    private static void printMatches(int day) {
+        System.out.print("Day " + day + ": " + '\n');
         for (Proposer p : proposerList) {
             System.out.print(p + " - " + p.getMatch());
-            if(!p.equals(proposerList.get(proposerList.size()-1)))
-                System.out.print(", ");
-            else
-                System.out.print('\n');
+            if (p.isNotEngaged())
+                System.out.print(" (proposed to or was previously matched with " + p.getPreferences().get(p.getCurrent() - 1) + ")");
+            if (!p.equals(proposerList.get(proposerList.size() - 1))) {
+                System.out.print("\n");
+            } else {
+                System.out.println("\n");
+            }
         }
     }
 
@@ -43,27 +45,27 @@ public class Algorithm {
     // Test Main
     public static void main(String[] args) {
         // list of men
-        String[] m = {"M1", "M2", "M3", "M4", "M5"};
+        String[] m = {"m1", "m2", "m3", "m4"};
         // list of women
-        String[] w = {"W1", "W2", "W3", "W4", "W5"};
+        String[] w = {"f1", "f2", "f3", "f4"};
 
         // men preference
-        String[][] mp = {{"W5", "W2", "W3", "W4", "W1"},
-                {"W2", "W5", "W1", "W3", "W4"},
-                {"W4", "W3", "W2", "W1", "W5"},
-                {"W1", "W2", "W3", "W4", "W5"},
-                {"W5", "W2", "W3", "W4", "W1"}};
+        String[][] mp = {{"f3", "f2", "f1", "f4"},
+                {"f4", "f1", "f3", "f2"},
+                {"f4", "f2", "f3", "f1"},
+                {"f2", "f3", "f4", "f1"}};
         // women preference
-        String[][] wp = {{"M5", "M3", "M4", "M1", "M2"},
-                {"M1", "M2", "M3", "M5", "M4"},
-                {"M4", "M5", "M3", "M2", "M1"},
-                {"M5", "M2", "M1", "M4", "M3"},
-                {"M2", "M1", "M4", "M3", "M5"}};
+        String[][] wp = {{"m1", "m3", "m4", "m2"},
+                {"m1", "m4", "m3", "m2"},
+                {"m4", "m2", "m3", "m1"},
+                {"m2", "m4", "m1", "m3"}};
 
-        char prop = 'm'; //Changes the propose (m/w)
+//        char prop = 'm'; //Changes the propose (m/w)
+//
+//        if (prop == 'm') input(m, w, mp, wp); // When men propose
+//        else input(w, m, wp, mp); // When women proposer
 
-        if (prop == 'm') input(m, w, mp, wp); // When men propose
-        else input(w, m, wp, mp); // When women proposer
+        input(m, w, mp, wp); //the lecture says men propose
 
         Algorithm.calculateMatches();
     }

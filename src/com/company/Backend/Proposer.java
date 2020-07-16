@@ -7,13 +7,11 @@ public class Proposer {
 
     private final String name;
     private final List<Acceptor> preferences = new ArrayList<>();
-    protected boolean free;
     private Acceptor match;
     private int current = 0;
 
     public Proposer(String name) {
         this.name = name;
-        free = true;
     }
 
     public String getName() {
@@ -29,33 +27,23 @@ public class Proposer {
     }
 
     public void propose(Acceptor p) {
-        if (p.isFree()) {
+        if (p.isNotEngaged()) {
             setMatch(p);
             p.setMatch(this);
-            match.setFree(false);
-            free = false;
         } else if (p.getRank(this) < p.getRank(p.getMatch())) {
-            if (match != null) match.setFree(true);
-
-            /**
-             * This sets the previous match to a single status
-             * **/
+            if (match != null) {
+                match.setMatch(null);
+            }
+            p.getMatch().incCurrent();
             p.getMatch().setMatch(null);
-            p.getMatch().setFree(true);
 
             setMatch(p);
             p.setMatch(this);
-            match.setFree(false);
-            free = false;
-        }
+        } else incCurrent();
     }
 
-    public boolean isFree() {
-        return free;
-    }
-
-    public void setFree(boolean free) {
-        this.free = free;
+    public boolean isNotEngaged() {
+        return match == null;
     }
 
     public Acceptor getMatch() {

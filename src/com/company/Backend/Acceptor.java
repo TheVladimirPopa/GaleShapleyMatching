@@ -8,11 +8,9 @@ public class Acceptor {
     private final String name;
     private final List<Proposer> preferences = new ArrayList<>();
     private Proposer match;
-    private boolean free;
 
     public Acceptor(String name) {
         this.name = name;
-        free = true;
     }
 
     protected int getRank(Proposer proposer) {
@@ -22,12 +20,8 @@ public class Acceptor {
         return 0;
     }
 
-    public boolean isFree() {
-        return free;
-    }
-
-    public void setFree(boolean free) {
-        this.free = free;
+    public boolean isNotEngaged() {
+        return match == null;
     }
 
     public String getName() {
