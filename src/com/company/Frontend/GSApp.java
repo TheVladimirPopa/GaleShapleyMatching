@@ -34,17 +34,17 @@ import javax.swing.*;
  * for the app to work:
  * Algorithm.input(proposers,acceptors,proposerPreferences,acceptorPreferences);
  * Algorithm.calculateMatches();
- * Algorithm.printMatches(); (will probably be maintained for debugging,
- * but also likely be replaced in the graphical part)
  */
 
 public class GSApp extends Application {
 
+    public static void main(String[] args) {
+        GSApp.startApp(args);
+    }
+
     public static void startApp(String[] args) {
         launch(args);
     }
-
-    private final String title = "Matching";
 
     @Override
     public void start(Stage primaryStage) {
@@ -93,6 +93,7 @@ public class GSApp extends Application {
         stackPane.getChildren().remove(createButton);
 
 
+        String title = "Matching";
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -81,15 +81,19 @@ public class Algorithm {
 
         int index = 0;
         for (Proposer proposer : proposerList) {
-            for (int i = 0; i < mp[index].length; i++)
+            for (int i = 0; i < mp[index].length; i++) {
+                nameCheck(mp[index][i]);
                 proposer.getPreferences().add(matchStringToObject0(mp[index][i]));
+            }
             index++;
         }
 
         index = 0;
         for (Acceptor acceptor : acceptorList) {
-            for (int i = 0; i < wp[index].length; i++)
+            for (int i = 0; i < wp[index].length; i++) {
+                nameCheck0(wp[index][i]);
                 acceptor.getPreferences0().add(matchStringToObject(wp[index][i]));
+            }
             index++;
         }
     }
@@ -110,5 +114,15 @@ public class Algorithm {
             }
         }
         return null;
+    }
+
+    private static void nameCheck(String s) {
+        if (!acceptorList.contains(matchStringToObject0(s)))
+            throw new IllegalArgumentException("Preference not available");
+    }
+
+    private static void nameCheck0(String s) {
+        if (!proposerList.contains(matchStringToObject(s)))
+            throw new IllegalArgumentException("Preference not available");
     }
 }
