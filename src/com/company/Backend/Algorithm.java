@@ -20,7 +20,7 @@ public class Algorithm {
         while (!isEveryOneEngaged()) {
             for (Proposer proposer : proposerList) {
                 if (proposer.isNotEngaged())
-                    proposer.propose(proposer.getPreferences().get(proposer.getCurrent()));
+                    proposer.propose((Acceptor) proposer.getPreferences().get(proposer.getCurrent()));
             }
             printMatches(day);
             day++;
@@ -92,7 +92,7 @@ public class Algorithm {
         for (Acceptor acceptor : acceptorList) {
             for (int i = 0; i < wp[index].length; i++) {
                 nameCheck0(wp[index][i]);
-                acceptor.getPreferences0().add(matchStringToObject(wp[index][i]));
+                acceptor.getPreferences().add(matchStringToObject(wp[index][i]));
             }
             index++;
         }
