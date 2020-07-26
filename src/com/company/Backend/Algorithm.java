@@ -18,10 +18,9 @@ public class Algorithm {
     public static void calculateMatches() {
         int day = 1;
         while (!isEveryOneEngaged()) {
-            for (Proposer proposer : proposerList) {
+            for (Proposer proposer : proposerList)
                 if (proposer.isNotEngaged())
                     proposer.propose((Acceptor) proposer.getPreferences().get(proposer.getCurrent()));
-            }
             printMatches(day);
             day++;
         }
@@ -33,11 +32,8 @@ public class Algorithm {
             System.out.print(p + " - " + p.getMatch());
             if (p.isNotEngaged())
                 System.out.print(" (proposed to or was previously matched with " + p.getPreferences().get(p.getCurrent() - 1) + ")");
-            if (!p.equals(proposerList.get(proposerList.size() - 1))) {
-                System.out.print("\n");
-            } else {
-                System.out.println("\n");
-            }
+            if (!p.equals(proposerList.get(proposerList.size() - 1))) System.out.print("\n");
+            else System.out.println("\n");
         }
     }
 
@@ -76,8 +72,8 @@ public class Algorithm {
      **/
 
     public static void input(String[] m, String[] w, String[][] mp, String[][] wp) {
-        for (String s : m) Algorithm.proposerList.add(new Proposer(s));
-        for (String s : w) Algorithm.acceptorList.add(new Acceptor(s));
+        for (String s : m) proposerList.add(new Proposer(s));
+        for (String s : w) acceptorList.add(new Acceptor(s));
 
         int index = 0;
         for (Proposer proposer : proposerList) {
@@ -99,20 +95,12 @@ public class Algorithm {
     }
 
     private static Proposer matchStringToObject(String s) {
-        for (Proposer p : proposerList) {
-            if (s.equals(p.getName())) {
-                return p;
-            }
-        }
+        for (Proposer p : proposerList) if (s.equals(p.toString())) return p;
         return null;
     }
 
     private static Acceptor matchStringToObject0(String s) {
-        for (Acceptor a : acceptorList) {
-            if (s.equals(a.getName())) {
-                return a;
-            }
-        }
+        for (Acceptor a : acceptorList) if (s.equals(a.toString())) return a;
         return null;
     }
 

@@ -21,10 +21,6 @@ public abstract class Actor {
         this.match = match;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public List<Actor> getPreferences() {
         return preferences;
     }
