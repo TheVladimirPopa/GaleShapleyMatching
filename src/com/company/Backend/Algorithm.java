@@ -13,14 +13,16 @@ public class Algorithm {
             if (proposer.isNotEngaged())
                 return false;
         return true;
+       // return engagedCount == proposerList.size();
     }
 
     public static void calculateMatches() {
         int day = 1;
         while (!isEveryOneEngaged()) {
             for (Proposer proposer : proposerList)
-                if (proposer.isNotEngaged())
+                if (proposer.isNotEngaged()) {
                     proposer.propose((Acceptor) proposer.getPreferences().get(proposer.getCurrent()));
+                }
             printMatches(day);
             day++;
         }
@@ -78,8 +80,8 @@ public class Algorithm {
         int index = 0;
         for (Proposer proposer : proposerList) {
             for (int i = 0; i < mp[index].length; i++) {
-                nameCheck(mp[index][i]);
-                proposer.getPreferences().add(matchStringToObject0(mp[index][i]));
+                acceptorNameCheck(mp[index][i]);
+                proposer.getPreferences().add(matchStringToAcceptor(mp[index][i]));
             }
             index++;
         }
@@ -87,30 +89,31 @@ public class Algorithm {
         index = 0;
         for (Acceptor acceptor : acceptorList) {
             for (int i = 0; i < wp[index].length; i++) {
-                nameCheck0(wp[index][i]);
-                acceptor.getPreferences().add(matchStringToObject(wp[index][i]));
+                proposerNameCheck(wp[index][i]);
+                acceptor.getPreferences().add(matchStringToProposer(wp[index][i]));
+                acceptor.getPreferenceRanks().put((Proposer) acceptor.getPreferences().get(i), i);
             }
             index++;
         }
     }
 
-    private static Proposer matchStringToObject(String s) {
+    private static Proposer matchStringToProposer(String s) {
         for (Proposer p : proposerList) if (s.equals(p.toString())) return p;
         return null;
     }
 
-    private static Acceptor matchStringToObject0(String s) {
+    private static Acceptor matchStringToAcceptor(String s) {
         for (Acceptor a : acceptorList) if (s.equals(a.toString())) return a;
         return null;
     }
 
-    private static void nameCheck(String s) {
-        if (!acceptorList.contains(matchStringToObject0(s)))
+    private static void acceptorNameCheck(String s) {
+        if (!acceptorList.contains(matchStringToAcceptor(s)))
             throw new IllegalArgumentException("Preference not available");
     }
 
-    private static void nameCheck0(String s) {
-        if (!proposerList.contains(matchStringToObject(s)))
+    private static void proposerNameCheck(String s) {
+        if (!proposerList.contains(matchStringToProposer(s)))
             throw new IllegalArgumentException("Preference not available");
     }
 }
