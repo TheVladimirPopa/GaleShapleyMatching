@@ -42,7 +42,6 @@ public class Algorithm {
     }
 
     public static void main(String[] args) {
-
         // list of men
         String[] m;
         // list of women
