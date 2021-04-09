@@ -19,18 +19,18 @@ public class Algorithm {
     }
 
     public static void calculateMatches() {
-        int day = 1;
+        int round = 1;
         while (!isEveryOneEngaged()) {
             for (Proposer proposer : proposerList)
                 if (proposer.isNotEngaged())
                     proposer.propose((Acceptor) proposer.getPreferences().get(proposer.getCurrent()));
-            printMatches(day);
-            day++;
+            printMatches(round);
+            round++;
         }
     }
 
-    private static void printMatches(int day) {
-        System.out.print("Day " + day + ": " + '\n');
+    private static void printMatches(int round) {
+        System.out.print("Round " + round + ": " + '\n');
         for (Proposer p : proposerList) {
             System.out.print(p + " - " + p.getMatch());
             if (p.isNotEngaged())
@@ -52,7 +52,6 @@ public class Algorithm {
         String[][] wp;
 
         if (testingMode) {
-
             // list of men
             m = new String[]{"m1", "m2", "m3", "m4"};
             // list of women
@@ -97,7 +96,7 @@ public class Algorithm {
             System.out.println("Input the women's preference orders:");
             System.out.println("(Separated by spaces for each preference and by lines for each individual):");
             for (int i = 0; i < w.length; i++) {
-                System.out.print(w[i] + ":");
+                System.out.print(w[i] + ": ");
                 aux = in.nextLine();
                 wp[i] = aux.split(" ");
             }
@@ -151,11 +150,11 @@ public class Algorithm {
 
     private static void acceptorNameCheck(String s) {
         if (!acceptorList.contains(matchStringToAcceptor(s)))
-            throw new IllegalArgumentException("Preference not available");
+            throw new IllegalArgumentException(s + " isn't in the acceptor list");
     }
 
     private static void proposerNameCheck(String s) {
         if (!proposerList.contains(matchStringToProposer(s)))
-            throw new IllegalArgumentException("Preference not available");
+            throw new IllegalArgumentException(s + " isn't in the proposer list");
     }
 }
