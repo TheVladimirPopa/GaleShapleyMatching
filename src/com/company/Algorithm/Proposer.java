@@ -1,6 +1,5 @@
 package com.company.Algorithm;
 
-import org.jetbrains.annotations.NotNull;
 
 public class Proposer extends Actor {
 
@@ -18,7 +17,7 @@ public class Proposer extends Actor {
         current++;
     }
 
-    public void propose(@NotNull Acceptor choice) {
+    public void propose(Acceptor choice) {
         if (choice.isNotEngaged()) {
             setMatch(choice);
             choice.setMatch(this);
