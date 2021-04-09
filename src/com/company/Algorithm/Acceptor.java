@@ -1,10 +1,10 @@
-package com.company.Backend;
+package com.company.Algorithm;
 
 import java.util.HashMap;
 
 public class Acceptor extends Actor {
 
-    private HashMap<Proposer, Integer> ranks;
+    private final HashMap<Proposer, Integer> ranks;
 
     public Acceptor(String name) {
         super(name);

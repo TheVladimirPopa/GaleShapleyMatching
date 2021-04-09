@@ -1,4 +1,4 @@
-package com.company.Backend;
+package com.company.Algorithm;
 
 public class Proposer extends Actor {
 

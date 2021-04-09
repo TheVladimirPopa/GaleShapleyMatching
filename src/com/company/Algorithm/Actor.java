@@ -1,4 +1,4 @@
-package com.company.Backend;
+package com.company.Algorithm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public abstract class Actor {
     public boolean isNotEngaged() {
         return match == null;
     }
-    
+
     @Override
     public String toString() {
         return name;
