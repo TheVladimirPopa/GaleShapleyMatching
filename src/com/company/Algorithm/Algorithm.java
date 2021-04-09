@@ -100,7 +100,6 @@ public class Algorithm {
                 aux = in.nextLine();
                 wp[i] = aux.split(" ");
             }
-
         }
 
         if (prop == 'm') input(m, w, mp, wp); // When men propose
