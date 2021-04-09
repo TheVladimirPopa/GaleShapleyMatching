@@ -16,9 +16,6 @@ public class Acceptor extends Actor {
     }
 
     protected int getRank(Proposer proposer) {
-//        for (int i = 0; i < getPreferences().size(); i++)
-//            if (getPreferences().get(i).equals(proposer))
-//                return i;
         return ranks.get(proposer);
     }
 

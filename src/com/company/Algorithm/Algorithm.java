@@ -9,14 +9,13 @@ public class Algorithm {
     private static final List<Proposer> proposerList = new ArrayList<>();
     private static final List<Acceptor> acceptorList = new ArrayList<>();
     static boolean testingMode = false;
-    static char prop = 'm'; //Changes the propose (m/w)
+    static char prop = 'm'; // Changes the propose (m/w)
 
     private static boolean isEveryOneEngaged() {
         for (Proposer proposer : Algorithm.proposerList)
             if (proposer.isNotEngaged())
                 return false;
         return true;
-        // return engagedCount == proposerList.size();
     }
 
     public static void calculateMatches() {
@@ -107,8 +106,6 @@ public class Algorithm {
 
         if (prop == 'm') input(m, w, mp, wp); // When men propose
         else input(w, m, wp, mp); // When women proposer
-
-//        input(m, w, mp, wp); //the lecture says men propose
 
         Algorithm.calculateMatches();
     }
