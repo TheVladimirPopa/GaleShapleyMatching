@@ -151,11 +151,11 @@ public class Algorithm {
 
     private static void acceptorNameCheck(String s) {
         if (!acceptorList.contains(matchStringToAcceptor(s)))
-            throw new IllegalArgumentException("Preference not available");
+            throw new IllegalArgumentException(s + " isn't in the acceptor list");
     }
 
     private static void proposerNameCheck(String s) {
         if (!proposerList.contains(matchStringToProposer(s)))
-            throw new IllegalArgumentException("Preference not available");
+            throw new IllegalArgumentException(s + " isn't in the proposer list");
     }
 }
